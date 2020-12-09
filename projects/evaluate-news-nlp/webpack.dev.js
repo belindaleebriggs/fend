@@ -11,7 +11,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: '/\.js$/',
+                test: /\.scss$/i,
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+              },
+            {
+                test: '/\.m?js$/',
                 exclude: /node_modules/,
                 loader: "babel-loader"
             }
@@ -30,6 +34,6 @@ module.exports = {
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
-        })
+        }),
     ]
 }
