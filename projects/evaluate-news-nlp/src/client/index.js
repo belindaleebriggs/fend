@@ -10,5 +10,3 @@ export {
     isValidURL,
     handleSubmit,
 }; 
-
-console.log(isValidURL);

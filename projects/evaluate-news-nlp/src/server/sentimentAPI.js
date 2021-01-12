@@ -6,6 +6,7 @@ let apiKey = '?key=' + process.env.API_KEY;
 
 // function to make API call to Meaningcloud's Sentiment API
 async function getSentiment(baseURL, url, key) {
+  console.log('getSentiment is running!')
   const outputFormat = '&of=json';
   const urlToEvaluate = '&url=' + url;
   const model = '&model=example-model';
@@ -81,7 +82,7 @@ const updateUI = async() => {
     }
 
 // listen on Generate button to trigger getSentiment fxn
-document.getElementById('generate').addEventListener('click', Client.performAction);
+// document.getElementById('generate').addEventListener('click', Client.performAction);
 
 /* For Debugging Call getData and postData
 getData('/all');

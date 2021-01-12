@@ -18,6 +18,7 @@ app.listen(8081, function () {
     console.log('Example app listening on port 8081!')
 })
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+// Route used by formHandler to access call to Sentiment API via SentimentAPI.js
+app.get('/getSentiment', function (req, res) {
+    res.send(sentimentAPI)
 })
