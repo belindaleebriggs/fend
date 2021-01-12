@@ -11,7 +11,7 @@ This project uses MeaningCloud's [Sentiment Analysis API](https://www.meaningclo
 3. Webpack Loaders and Plugins
 4. Creating layouts and page design
 5. Service workers
-6. Using APIs and creating requests to external URLs
+6. Using APIs and creating requests to external URLs (use .env to keep API key secure)
 
 ## Project Prerequisites
 - Webserver - Node
