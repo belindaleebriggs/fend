@@ -13,7 +13,7 @@ async function handleSubmit(event) {
         return
     }
         console.log('Trying to launch getSentiment from formHandler!')
-        // CHANGE PORT TO 8081 WHEN MOVING TO DEV
+        // CHANGE when moving to environments (8080 dev, 8081 prod)
         await fetch('http://localhost:8080/getSentiment', {
                 method: 'POST',
                 credentials: 'same-origin',

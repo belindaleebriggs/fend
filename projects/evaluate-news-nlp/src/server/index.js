@@ -14,6 +14,7 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
+// Change when moving to environments (8080 dev, 8081 prod)
 app.listen(8080, function () {
     console.log('Example app listening on port 8080!')
 })
