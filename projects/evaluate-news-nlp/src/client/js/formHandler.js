@@ -12,9 +12,9 @@ async function handleSubmit(event) {
         document.getElementById('errorMsg').innerHTML = "Please enter a valid URL.";
         return
     }
-        console.log("URL was valid")
         console.log('Trying to launch getSentiment from formHandler!')
-        await fetch('http://localhost:8081/getSentiment', {
+        // CHANGE PORT TO 8081 WHEN MOVING TO DEV
+        await fetch('http://localhost:8080/getSentiment', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -29,7 +29,7 @@ async function handleSubmit(event) {
             .then(function(res) {
             document.getElementById('results').innerHTML = res.message;
          }) .catch(err => {
-                document.getElementById('errorMsg').innerHTML = err;
+                document.getElementById('errorMsg').innerHTML = 'Server Error: ' + err;
             })
       }
 

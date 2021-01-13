@@ -14,11 +14,12 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
-    console.log('Example app listening on port 8081!')
+app.listen(8080, function () {
+    console.log('Example app listening on port 8080!')
 })
 
 // Route used by formHandler to access call to Sentiment API via SentimentAPI.js
 app.get('/getSentiment', function (req, res) {
+    console.log('Server index.js is routing get request for getSentiment')
     res.send(sentimentAPI)
 })
