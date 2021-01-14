@@ -23,7 +23,7 @@ async function handleSubmit(event) {
                 headers: {
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({url:formText})
+                body: JSON.stringify({formText})
             })
         // IF SENTIMENT API Returns the result back to formHandler use this to display the result
         // Although may be able to just display in SentimentAPI.js, unsure best method

@@ -81,8 +81,6 @@ const updateUI = async() => {
 
     }
 
-    performAction(e)
-
 // listen on Generate button to trigger getSentiment fxn
 // document.getElementById('generate').addEventListener('click', Client.performAction);
 
