@@ -6,6 +6,8 @@ const app = express()
 
 app.use(express.static('dist'))
 
+console.log('Server index.js running before cors setup')
+
 console.log(__dirname)
 
 app.get('/', function (req, res) {
@@ -19,8 +21,9 @@ app.listen(8080, function () {
     console.log('Example app listening on port 8080!')
 })
 
+console.log('Server index.js running before getSentiment post route setup')
 // Route used by formHandler to access call to Sentiment API via SentimentAPI.js
-app.get('/getSentiment', function (req, res) {
+app.post('/getSentiment', function (req, res) {
     console.log('Server index.js is routing get request for getSentiment')
-    res.send(sentimentAPI)
+    res.send(performAction)
 })
