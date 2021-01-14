@@ -1,3 +1,7 @@
+// designates what port the app will listen to for incoming requests
+// Change when moving to environments (8080 dev, 8081 prod)
+const port = 8080
+
 async function handleSubmit(event) {
     event.preventDefault()
 
@@ -9,12 +13,11 @@ async function handleSubmit(event) {
         // to send the url to the sentimentAPI js file for processing
         // THIS CODE MAY POSSIBLY WORK TO MAKE CALL TO SERVER JS 
     if(!valid) {
-        document.getElementById('errorMsg').innerHTML = "Please enter a valid URL.";
+        document.getElementById('urlErrorMsg').innerHTML = "Please enter a valid URL.";
         return
     }
         console.log('Trying to launch getSentiment from formHandler!')
-        // CHANGE when moving to environments (8080 dev, 8081 prod)
-        await fetch('http://localhost:8080/getSentiment', {
+        await fetch(`http://localhost:${port}/getSentiment`, {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -29,7 +32,7 @@ async function handleSubmit(event) {
             .then(function(res) {
             document.getElementById('results').innerHTML = res.message;
          }) .catch(err => {
-                document.getElementById('errorMsg').innerHTML = 'Server Error: ' + err;
+                document.getElementById('urlErrorMsg').innerHTML = 'Server Error: ' + err;
             })
       }
 
