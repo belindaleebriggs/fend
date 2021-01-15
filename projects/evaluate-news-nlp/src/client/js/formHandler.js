@@ -7,6 +7,15 @@ async function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
+
+    // Reset urlErrorMsg to blank to clear out any error messages from previous submissions
+    document.getElementById('urlErrorMsg').innerHTML = "";
+
+    // Reset answer area to clear out formatting if entering a new url
+    var resultsSection = document.getElementById('results-section');
+    resultsSection.className = " ";
+    var results = document.getElementById('results');
+    results.innerHTML = "Your results will appear here.";
  
     let valid = Client.isValidURL(formText)
         // if isValidURL return VALID use the routing in server.js file 
@@ -27,10 +36,10 @@ async function handleSubmit(event) {
             },)
         // IF SENTIMENT API Returns the result back to formHandler use this to display the result
         // Although may be able to just display in SentimentAPI.js, unsure best method
-            .then(res => res.json())
-                console.log(res)  
+            .then(res => res.json()) 
             .then(function(res) {
-                document.getElementById('results').innerHTML = `This ${res.truth_or_opinion}ly written content earned a postitivity rating of ${res.positivity}.`;
+                resultsSection.className += " " + 'answered';
+                results.innerHTML = `This ${res.truth_or_opinion.toLowerCase()}ly written content earned a postitivity rating of ${res.positivity}.`;
          }) .catch(err => {
                 document.getElementById('urlErrorMsg').innerHTML = 'Server Error: ' + err;
             })

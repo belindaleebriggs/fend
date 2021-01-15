@@ -26,21 +26,16 @@ const fetch = require('node-fetch');
 app.use(express.static('dist'))
 
 /* Create local server */
-/* Variables */
 var path = require('path');
-
-const sentimentAPIResponse = require('./sentimentAPI.js');
-const server = app.listen(port, listening);
-    
+const server = app.listen(port, listening);  
 function listening() {
     console.log(`Server running`);
     console.log(`listening on localhost: ${port}!`);
 }
 
-
-
 console.log(__dirname)
 
+/* ROUTES */
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
     res.sendFile(path.resolve('src/client/views/index.html'))
@@ -69,7 +64,7 @@ app.post('/getSentiment', function(req, res) {
         console.log(`Positivity Score : ${dataObject.positivity}`);
         console.log(`Subjectivity Score : ${dataObject.truth_or_opinion}`);
         console.log(dataObject)
-        return dataObject
+        res.send(dataObject)
         })
     } catch (error) {
         console.log('error ', error);

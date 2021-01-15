@@ -1,5 +1,5 @@
 form {
-    border: 1px solid #545454;
+    border: 1px solid var(--grey-800);
     border-radius: 3px;
     padding: 40px;
 }
@@ -11,6 +11,25 @@ input {
     margin: 10px 0;
 }
 
+label {
+ font-size: 1.1rem;
+ color: var(--grey-900);
+ font-weight: bold;
+ line-height: 1.5rem;
+}
+
 .errorMsg {
-    color: red;
+    color: var(--red-600);
+}
+
+.answered {
+    background-color: var(--indigo-900);
+    border: solid 1px var(--yellow-500);
+    border-radius: 8px;
+    padding: 15px 40px 40px;
+    color: white;
+}
+
+.answered .h2 {
+    color: white;
 }
