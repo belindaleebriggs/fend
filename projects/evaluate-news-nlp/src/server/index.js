@@ -60,17 +60,16 @@ app.post('/getSentiment', function(req, res) {
   try { 
       getSentiment(baseURL, req.body.formText, apiKey)
       .then(function(data) {
-        console.log(data.score_tag);
-        console.log(data.subjectivity);
+
         // Add data to data object in server.js via POST request
         const dataObject = {
             positivity: data.score_tag,
             truth_or_opinion: data.subjectivity,
             }
-        postData('/add',dataObject);
-        })
-        .then (function(){
-            updateUI();
+        console.log(`Positivity Score : ${dataObject.positivity}`);
+        console.log(`Subjectivity Score : ${dataObject.truth_or_opinion}`);
+        console.log(dataObject)
+        return dataObject
         })
     } catch (error) {
         console.log('error ', error);
@@ -99,36 +98,4 @@ async function getSentiment(baseURL, url, key) {
     }
   }
 
-// Process a post request
-const postData = async(url='', data = {}) => {
-    const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type' : 'application/json',
-    },
-      body: JSON.stringify(data),
-  });
-  try {
-    const newData = await response.json();
-    console.log(`NewData is ${Object.values(newData)}`);
-    return newData
-    } catch (error) {
-      console.log('error ', error);
-      //appropriately handle error
-    }
-  }
-  
-  // Function to update the UI with the addData
-  const updateUI = async() => {
-    const request = await fetch('/all');
-    try {
-      const allData = await request.json()
-      console.log(`UpdateUI allData: ${Object.values(allData)}`);
-      console.log(`Positivity Rating: ${allData.positivity}`);
-      document.getElementById('results').innerHTML = `This ${allData.truth_or_opinion}ly written content earned a postitivity rating of ${allData.positivity}.`;
-    } catch (error) {
-      console.log('error ', error);
-      //appropriately handle error
-    } }
   // END FUNCTIONS CALLED TO FULFILL formHandler sentimentAPI request

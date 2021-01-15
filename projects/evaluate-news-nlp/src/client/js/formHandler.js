@@ -24,13 +24,13 @@ async function handleSubmit(event) {
                 'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({formText: formText})
-            })
+            },)
         // IF SENTIMENT API Returns the result back to formHandler use this to display the result
         // Although may be able to just display in SentimentAPI.js, unsure best method
             .then(res => res.json())
-  
+                console.log(res)  
             .then(function(res) {
-            document.getElementById('results').innerHTML = res.message;
+                document.getElementById('results').innerHTML = `This ${res.truth_or_opinion}ly written content earned a postitivity rating of ${res.positivity}.`;
          }) .catch(err => {
                 document.getElementById('urlErrorMsg').innerHTML = 'Server Error: ' + err;
             })
