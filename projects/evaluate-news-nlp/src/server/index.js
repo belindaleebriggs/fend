@@ -19,6 +19,8 @@ app.use(bodyParser.json());
 const cors = require('cors')
 app.use(cors());
 
+// lets server run fetch requests
+const fetch = require('node-fetch');
 
 /* Initialize main project folder */
 app.use(express.static('dist'))
@@ -55,31 +57,38 @@ let apiKey = '?key=' + process.env.API_KEY;
 app.post('/getSentiment', function(req, res) {
      // get data from form
   console.log('getSentiment in server/index.js was reached.')
-  getSentiment(baseURL, req, apiKey)
-    .then(function(data) {
-      console.log(data);
-      // Add data to data object in server.js via POST request
-      const dataObject = {
-        positivity: score_tag,
-        truth_or_opinion: subjectivity,
-      }
-      postData('/add',dataObject);
-    })
-    .then (function(){
-        updateUI();
-      }
-    )
-})
+  try { 
+      getSentiment(baseURL, req.body.formText, apiKey)
+      .then(function(data) {
+        console.log(data.score_tag);
+        console.log(data.subjectivity);
+        // Add data to data object in server.js via POST request
+        const dataObject = {
+            positivity: data.score_tag,
+            truth_or_opinion: data.subjectivity,
+            }
+        postData('/add',dataObject);
+        })
+        .then (function(){
+            updateUI();
+        })
+    } catch (error) {
+        console.log('error ', error);
+        //appropriately handle error
+      } 
+    }
+)
 
 // FUNCTIONS CALLED TO FULFILL formHandler sentimentAPI request
 // function to make API call to Meaningcloud's Sentiment API
 async function getSentiment(baseURL, url, key) {
-    console.log('getSentiment is running!')
+    console.log('getSentiment is running')
     const outputFormat = '&of=json';
     const urlToEvaluate = '&url=' + url;
     const model = '&model=example-model';
     const language = '&lang=en';
     const apiUrl = baseURL + key + outputFormat + urlToEvaluate + model + language;
+    console.log(apiUrl);
     const res = await fetch(apiUrl);
     try {
       const data = await res.json();
@@ -123,9 +132,3 @@ const postData = async(url='', data = {}) => {
       //appropriately handle error
     } }
   // END FUNCTIONS CALLED TO FULFILL formHandler sentimentAPI request
-
-
-//
-// app.post('/getSentiment', function (req, res) {
-   
-//    res.send(performAction)
