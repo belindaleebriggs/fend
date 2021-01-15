@@ -1,6 +1,6 @@
 // designates what port the app will listen to for incoming requests
 // Change when moving to environments (8080 dev, 8081 prod)
-const port = 8081
+const port = 8080
 
 async function handleSubmit(event) {
     event.preventDefault()
@@ -12,8 +12,10 @@ async function handleSubmit(event) {
     document.getElementById('urlErrorMsg').innerHTML = "";
 
     // Reset answer area to clear out formatting if entering a new url
-    document.getElementById('results-section').className = " ";
-    document.getElementById('results').innerHTML = "Your results will appear here.";
+    var resultsSection = document.getElementById('results-section');
+    resultsSection.className = " ";
+    var results = document.getElementById('results');
+    results.innerHTML = "Your results will appear here.";
  
     let valid = Client.isValidURL(formText)
         // if isValidURL return VALID use the routing in server.js file 
@@ -35,18 +37,16 @@ async function handleSubmit(event) {
         // IF SENTIMENT API Returns the result back to formHandler use this to display the result
         // Although may be able to just display in SentimentAPI.js, unsure best method
             .then(res => res.json()) 
-            .then(function(res) {
-                updateUI(res);   
-            }) .catch(err => {
+            .then(updateUI(res))
+            .catch(err => {
                 document.getElementById('urlErrorMsg').innerHTML = 'Server Error: ' + err;
             })
       }
 
 
       function updateUI(data) {
-
-        document.getElementById('results-section').className += " " + 'answered';
-        document.getElementById('results').innerHTML = `This ${data.truth_or_opinion.toLowerCase()}ly written content earned a postitivity rating of ${data.positivity}.`;
+            resultsSection.className += " " + 'answered';
+            results.innerHTML = `This ${data.truth_or_opinion.toLowerCase()}ly written content earned a postitivity rating of ${data.positivity}.`;
       }
 
 export { handleSubmit, updateUI }
