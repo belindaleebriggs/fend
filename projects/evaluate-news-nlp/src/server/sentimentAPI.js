@@ -90,4 +90,4 @@ postData('/purple')
 
 End for Debugging */
 
-export { performAction }
+module.exports = performAction

@@ -1,6 +1,6 @@
 // designates what port the app will listen to for incoming requests
 // Change when moving to environments (8080 dev, 8081 prod)
-const port = 8080
+const port = 8081
 
 async function handleSubmit(event) {
     event.preventDefault()
@@ -23,7 +23,7 @@ async function handleSubmit(event) {
                 headers: {
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({formText})
+                body: JSON.stringify({formText: formText})
             })
         // IF SENTIMENT API Returns the result back to formHandler use this to display the result
         // Although may be able to just display in SentimentAPI.js, unsure best method
