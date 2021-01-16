@@ -12,8 +12,10 @@ async function handleSubmit(event) {
     document.getElementById('urlErrorMsg').innerHTML = "";
 
     // Reset answer area to clear out formatting if entering a new url
-    document.getElementById('results-section').className = " ";
-    document.getElementById('results').innerHTML = "Your results will appear here.";
+    var resultsSection = document.getElementById('results-section');
+    resultsSection.className = " ";
+    var results = document.getElementById('results');
+    results.innerHTML = "Your results will appear here.";
  
     let valid = Client.isValidURL(formText)
         // if isValidURL return VALID use the routing in server.js file 
@@ -36,17 +38,19 @@ async function handleSubmit(event) {
         // Although may be able to just display in SentimentAPI.js, unsure best method
             .then(res => res.json()) 
             .then(function(res) {
-                updateUI(res);   
-            }) .catch(err => {
+                var resultsSection = document.getElementById('results-section');
+                var results = document.getElementById('results');
+                updateUI(res, resultsSection, results) 
+            })
+            .catch(err => {
                 document.getElementById('urlErrorMsg').innerHTML = 'Server Error: ' + err;
             })
       }
 
 
-      function updateUI(data) {
-
-        document.getElementById('results-section').className += " " + 'answered';
-        document.getElementById('results').innerHTML = `This ${data.truth_or_opinion.toLowerCase()}ly written content earned a postitivity rating of ${data.positivity}.`;
+      function updateUI(data, resultsSection, results) {
+            resultsSection.className += " " + 'answered';
+            results.innerHTML = `This ${data.truth_or_opinion.toLowerCase()}ly written content earned a postitivity rating of ${data.positivity}.`;
       }
 
 export { handleSubmit, updateUI }

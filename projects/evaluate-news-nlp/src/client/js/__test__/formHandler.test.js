@@ -1,6 +1,10 @@
 // Import the js file to test
 import { updateUI } from "../formHandler.js"
 
+// Setup to create a fake dom so UI update tests will work
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
 // The describe() function takes two arguments - a string description, and a test suite as a callback function.  
 // A test suite may contain one or more related tests 
 
@@ -17,9 +21,7 @@ describe("Testing the Update UI Display functionality", () => {
             truth_or_opinion: 'Waffly',
             };
         // Fake dom elements to allow UI update steps to run
-        const dom = new JSDOM(`<section id="results-section"><div id="results"></div></section>`);
-        const resultsSection = dom.window.document.getElementById('results-section');
-        const results = dom.window.document.getElementById('results');
-        expect(updateUI(data)).toHaveReturned() ;
-        });
+        const domElement = new JSDOM(`<section id="results-section"><div id="results"></div></section>`);
+        expect(updateUI(data, domElement.getElementbyID('resultsSection'), domElement.getElementbyID.results).toHaveReturned());
     });
+})
