@@ -21,7 +21,10 @@ describe("Testing the Update UI Display functionality", () => {
             truth_or_opinion: 'Waffly',
             };
         // Fake dom elements to allow UI update steps to run
-        const domElement = new JSDOM(`<section id="results-section"><div id="results"></div></section>`);
-        expect(updateUI(data, domElement.getElementbyID('resultsSection'), domElement.getElementbyID.results).toHaveReturned());
+        const dom = new JSDOM(`<section id="results-section" class=""><div id="results" class=""></div></section>`);
+
+        var resultsSection = dom.window.document.getElementById('resultsSection'); 
+        var results = dom.window.document.getElementById('results')
+        expect(updateUI(data, resultsSection, results).toHaveReturned());
     });
 })
